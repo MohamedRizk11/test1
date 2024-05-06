@@ -9,12 +9,34 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+# في ملف settings.py
+
+import os
+
+# تحديد المسار لملف GDAL
+GDAL_LIBRARY_PATH = r'C:\Users\Lenovo\OneDrive\Desktop\test\test\src\GDAL-3.4.3-cp311-cp311-win_amd64.whl'
+ # حيث 'xxx' يمثل إصدار GDAL المثبت
+
+
+# تعيين المسارات لـ GDAL و PROJ_LIB في متغيرات البيئة
+os.environ['PATH'] = os.path.join(GDAL_LIBRARY_PATH, 'osgeo') + ';' + os.environ['PATH']
+os.environ['PROJ_LIB'] = os.path.join(GDAL_LIBRARY_PATH, 'osgeo', 'data', 'proj')
+
+# اختبار طباعة المسارات للتحقق
+
+# إعدادات أخرى لـ STATICFILES_DIRS وغيرها تأكد من تحديدها بشكل صحيح
+
+# الآن يجب أن يتم تطبيق التغييرات بشكل صحيح دون ظهور الأخطاء
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -37,6 +59,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'django.contrib.gis',
+    'masark',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +100,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'masark',
+        'USER': 'postgres',
+        'PASSWORD': 'MohamedRizk123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -116,7 +145,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    
+]
+MEDIA_URL='/media/'
+MEDIA_ROOT=BASE_DIR / "media"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
