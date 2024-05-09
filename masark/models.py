@@ -23,7 +23,7 @@ class Station(models.Model):
         db_table = 'station'
         
     def __str__(self):
-        return self.name
+        return self.Name
 
 class FamousPlace(models.Model):
     station = models.ForeignKey(Station, related_name='station_place', on_delete=models.SET_NULL, null=True)
@@ -33,12 +33,16 @@ class FamousPlace(models.Model):
         return self.name
 
 class Road(models.Model):
-    road_id = models.IntegerField(_("Road_id"), unique=True, primary_key=True)
     geom = models.PointField(srid=4326)
-    fid = models.IntegerField(_("Fid"))
-    name = models.CharField(_("Name"), max_length=40)
-    time = models.IntegerField(_("Time"))
-    distance = models.FloatField(_("Distance"))
+    Name = models.CharField( max_length=40)
+    Time = models.IntegerField()
+    Distance = models.FloatField()
+
+    class Meta:
+        db_table = 'road'
+        
+    def __str__(self):
+        return self.Name
 
 class Ticket(models.Model):
     from_station = models.ForeignKey(Station, related_name='from_station_tickets', on_delete=models.SET_NULL, null=True)

@@ -1,7 +1,14 @@
 from rest_framework import serializers
-from .models import Station
+from .models import Station , Road
 
-class YourModelSerializer(serializers.ModelSerializer):
+class StationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Station
         fields = '__all__'
+
+
+
+class RoadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Road
+        fields = '__all__'        
