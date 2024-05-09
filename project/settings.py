@@ -11,16 +11,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 # في ملف settings.py
 
+from pathlib import Path
 import os
-
-# تحديد المسار لملف GDAL
-GDAL_LIBRARY_PATH = r'C:\Users\Lenovo\OneDrive\Desktop\test\test\src\GDAL-3.4.3-cp311-cp311-win_amd64.whl'
- # حيث 'xxx' يمثل إصدار GDAL المثبت
-
-
-# تعيين المسارات لـ GDAL و PROJ_LIB في متغيرات البيئة
-os.environ['PATH'] = os.path.join(GDAL_LIBRARY_PATH, 'osgeo') + ';' + os.environ['PATH']
-os.environ['PROJ_LIB'] = os.path.join(GDAL_LIBRARY_PATH, 'osgeo', 'data', 'proj')
+if os.name == 'nt':
+    VENV_BASE = os.environ['VIRTUAL_ENV']
+    os.environ['PATH'] = os.path.join(VENV_BASE, 'Lib\\site-packages\\osgeo') + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(VENV_BASE, 'Lib\\site-packages\\osgeo\\data\\proj') + ';' + os.environ['PATH']
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # اختبار طباعة المسارات للتحقق
 
@@ -36,7 +34,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -59,8 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'django.contrib.gis',
+    'rest_framework',
     'masark',
 ]
 
@@ -98,16 +95,19 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'masark',
         'USER': 'postgres',
         'PASSWORD': 'MohamedRizk123',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',  # يمكن تعديله إلى عنوان IP الخاص بالخادم إذا لزم الأمر
         'PORT': '5432',
     }
-}
+} 
+
+
 
 
 # Password validation
