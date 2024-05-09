@@ -19,12 +19,15 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from masark.views import StationAPIView,RoadAPIView
+from masark.views import StationAPIView,RoadAPIView,TicketAPIView,UsersAPIView,FamousPlaceAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Stationapi/', StationAPIView.as_view(), name='your-model'),
     path('Roadapi/', RoadAPIView.as_view(), name='your-model'),
+    path('ticketapi/', TicketAPIView.as_view(), name='your-model'),
+    path('usersapi/', UsersAPIView.as_view(), name='your-model'),
+    path('famousplacesapi/', FamousPlaceAPIView.as_view(), name='your-model'),
 ]
 urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
