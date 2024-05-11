@@ -23,11 +23,11 @@ from masark.views import StationAPIView,RoadAPIView,TicketAPIView,UsersAPIView,F
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Stationapi/', StationAPIView.as_view(), name='your-model'),
-    path('Roadapi/', RoadAPIView.as_view(), name='your-model'),
-    path('ticketapi/', TicketAPIView.as_view(), name='your-model'),
-    path('usersapi/', UsersAPIView.as_view(), name='your-model'),
-    path('famousplacesapi/', FamousPlaceAPIView.as_view(), name='your-model'),
+    path('Stationapi/', StationAPIView.as_view()),
+    path('Roadapi/', RoadAPIView.as_view()),
+    path('ticketapi/', TicketAPIView.as_view()),
+    path('usersapi/', UsersAPIView.as_view()),
+    path('famousplacesapi/', FamousPlaceAPIView.as_view()),
 ]
 urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
