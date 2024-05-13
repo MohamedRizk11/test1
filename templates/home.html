@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Search</title>
+</head>
+<body>
+    <h1>Voice Search</h1>
+    <form id="searchForm" method="post">
+        {% csrf_token %}
+        <button type="submit">ابدأ البحث بالصوت</button>
+    </form>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // منع إرسال النموذج بشكل تلقائي
+
+            fetch('/voice_search/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken') // إرفاق علامة CSRF token
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('تم تنفيذ البحث بنجاح');
+                    // يمكنك هنا إضافة رسالة أو توجيه المستخدم إلى صفحة أخرى بعد التنفيذ بنجاح
+                } else {
+                    console.error('حدث خطأ أثناء تنفيذ البحث');
+                }
+            })
+            .catch(error => console.error('حدث خطأ أثناء الاتصال بالخادم:', error));
+        });
+
+        // الحصول على قيمة علامة CSRF من الكوكيز
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>

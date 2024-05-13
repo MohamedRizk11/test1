@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from masark.views import StationAPIView,RoadAPIView,TicketAPIView,UsersAPIView,FamousPlaceAPIView
+from masark.views import StationAPIView,RoadAPIView,TicketAPIView,UsersAPIView,FamousPlaceAPIView,VoiceSearchAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,9 +28,13 @@ urlpatterns = [
     path('ticketapi/', TicketAPIView.as_view()),
     path('usersapi/', UsersAPIView.as_view()),
     path('famousplacesapi/', FamousPlaceAPIView.as_view()),
+
+    path('voice_search/', VoiceSearchAPI.as_view(), name='voice_search'),
 ]
 urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 
 
 
